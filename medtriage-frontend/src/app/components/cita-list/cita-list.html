@@ -1,0 +1,56 @@
+<section class="contenedor">
+  <h2>Citas médicas</h2>
+
+  <div class="filtros">
+    <button (click)="cambiarFiltro('TODAS')">Todas</button>
+    <button (click)="cambiarFiltro('ALTA')">Alta</button>
+    <button (click)="cambiarFiltro('MEDIA')">Media</button>
+    <button (click)="cambiarFiltro('BAJA')">Baja</button>
+  </div>
+
+  <div class="tabla-contenedor">
+    <table>
+      <thead>
+        <tr>
+          <th>Código</th>
+          <th>Paciente</th>
+          <th>Doctor</th>
+          <th>Prioridad</th>
+          <th>Motivo</th>
+          <th>Estado</th>
+          <th>Monto</th>
+          <th>Acción</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        @for (cita of citasFiltradas(); track cita.id) {
+          <tr>
+            <td>{{ cita.codigoCita }}</td>
+            <td>{{ cita.nombrePaciente }}</td>
+            <td>{{ cita.nombreDoctor }}</td>
+            <td>{{ cita.nivelPrioridad }}</td>
+            <td>{{ cita.motivoConsulta }}</td>
+            <td>
+              <span class="badge" [ngClass]="cita.estado">
+                {{ cita.estado }}
+              </span>
+            </td>
+            <td>{{ cita.montoConsulta | currency:'CRC':'₡':'1.2-2' }}</td>
+            <td>
+              @if (cita.estado === 'PENDIENTE' || cita.estado === 'EN_ATENCION') {
+                <button (click)="avanzarEstado(cita)">
+                  Avanzar estado
+                </button>
+              }
+            </td>
+          </tr>
+        } @empty {
+          <tr>
+            <td colspan="8">No hay citas para mostrar.</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</section>

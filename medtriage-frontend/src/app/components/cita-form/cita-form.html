@@ -1,0 +1,64 @@
+<section class="formulario-contenedor">
+  <h2>Registrar nueva cita</h2>
+
+  <form (ngSubmit)="crearCita()">
+    <label for="pacienteId">ID del paciente</label>
+    <input
+      id="pacienteId"
+      type="number"
+      name="pacienteId"
+      [(ngModel)]="cita.pacienteId"
+      min="1"
+      required
+    >
+
+    <label for="doctorId">ID del doctor</label>
+    <input
+      id="doctorId"
+      type="number"
+      name="doctorId"
+      [(ngModel)]="cita.doctorId"
+      min="1"
+      required
+    >
+
+    <label for="nivelPrioridad">Prioridad</label>
+    <select
+      id="nivelPrioridad"
+      name="nivelPrioridad"
+      [(ngModel)]="cita.nivelPrioridad"
+      required
+    >
+      <option value="ALTA">Alta</option>
+      <option value="MEDIA">Media</option>
+      <option value="BAJA">Baja</option>
+    </select>
+
+    <label for="motivoConsulta">Motivo de consulta</label>
+    <textarea
+      id="motivoConsulta"
+      name="motivoConsulta"
+      [(ngModel)]="cita.motivoConsulta"
+      rows="4"
+      required
+    ></textarea>
+
+    <label for="montoConsulta">Monto de la consulta (₡)</label>
+    <input
+      id="montoConsulta"
+      type="number"
+      name="montoConsulta"
+      [(ngModel)]="cita.montoConsulta"
+      min="1"
+      required
+    >
+
+    @if (mensaje) {
+      <p class="mensaje">{{ mensaje }}</p>
+    }
+
+    <button type="submit" [disabled]="guardando">
+      {{ guardando ? 'Registrando...' : 'Registrar cita' }}
+    </button>
+  </form>
+</section>
